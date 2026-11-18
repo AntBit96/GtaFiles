@@ -1,7 +1,5 @@
 <div align="center">
 
-# DacityCoin — $A
-
 ### Vice Economy Fan Edition
 
 **A GTA-inspired fan project where DacityCoin ($A) is the in-world currency.**
