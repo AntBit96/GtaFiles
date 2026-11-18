@@ -1,10 +1,6 @@
 <div align="center">
 
-# DacityCoin — $A
-
 ### Vice Economy Fan Edition
-
-**A GTA-inspired fan project where DacityCoin ($A) is the in-world currency.**
 
 </div>
 
@@ -18,8 +14,6 @@
 ---
 
 ## What is this?
-
-DacityCoin is a community project whose name is **DacityCoin** and whose ticker is **$A**.
 
 To give it a home with some personality, this repo imagines what an open-world crime game's
 economy would look like if DacityCoin were the street currency. The main file reads like a
