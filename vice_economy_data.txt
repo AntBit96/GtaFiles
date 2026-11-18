@@ -18,9 +18,6 @@
 ##   of their respective owners; this project is not affiliated with,         ##
 ##   endorsed by, or connected to them in any way.                            ##
 ##                                                                            ##
-##   The in-world currency below, DacityCoin ($A), is the theme of this fan   ##
-##   project. Nothing in this file is financial advice.                       ##
-##                                                                            ##
 ################################################################################
 
 
