@@ -1,0 +1,11 @@
+# Publish only the DacityCoin ($A) fan-project files.
+# Everything else in this folder stays local.
+
+# Ignore everything by default
+
+# Allow-list
+!/.gitignore
+!/README.md
+!/vice_economy_data.txt
+
+

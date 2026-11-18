@@ -1,0 +1,412 @@
+################################################################################
+##                                                                            ##
+##   VICE_ECONOMY_DATA.TXT                                                    ##
+##   Economy / Currency / Vendor Definition Table                             ##
+##                                                                            ##
+##   Build ............ 1.0.0.417 (FAN-EDITION)                               ##
+##   Format ........... Plain-text key/value, section-scoped                  ##
+##   Encoding ......... UTF-8, LF line endings                                ##
+##   Owner module ..... sys_economy / sys_vendor / sys_mission_reward         ##
+##                                                                            ##
+################################################################################
+##                                                                            ##
+##   NOTICE                                                                   ##
+##   This is a FICTIONAL, FAN-MADE lore file written in the style of a game   ##
+##   data table. It is NOT a leaked, extracted or official file from any      ##
+##   Rockstar Games / Take-Two Interactive product. It contains no game       ##
+##   code, assets or data. Grand Theft Auto and related names are trademarks  ##
+##   of their respective owners; this project is not affiliated with,         ##
+##   endorsed by, or connected to them in any way.                            ##
+##                                                                            ##
+##   The in-world currency below, DacityCoin ($A), is the theme of this fan   ##
+##   project. Nothing in this file is financial advice.                       ##
+##                                                                            ##
+################################################################################
+
+
+;==============================================================================
+; [META]
+;==============================================================================
+[META]
+FileId                  = ECON_TABLE_MASTER
+FileVersion             = 1.0.0
+SchemaVersion           = 7
+LastEditor              = economy_design
+Region                  = LEONIDA_STATE
+DefaultCity             = VICE_CITY_FAN
+DefaultCurrency         = CUR_DACITY
+FallbackCurrency        = CUR_USD_LEGACY
+DecimalPrecision        = 2
+RoundingMode            = HALF_UP
+LoadOrder               = 040
+DependsOn               = vendor_registry.txt, mission_index.txt, property_grid.txt
+Checksum                = 0x00000000   ; placeholder, not computed for fan edition
+
+
+;==============================================================================
+; [CURRENCY]
+; Primary in-world currency definitions.
+;==============================================================================
+[CURRENCY]
+
+[CURRENCY.CUR_DACITY]
+DisplayName             = DacityCoin
+Ticker                  = $A
+Symbol                  = A
+SymbolPosition          = PREFIX
+LocKey                  = CUR_NAME_DACITY
+Description             = "The street currency of the fan edition. Accepted at every vendor, safehouse and garage."
+IsPrimary               = TRUE
+IsTradable              = TRUE
+IsEarnableInMissions    = TRUE
+IsEarnableInActivities  = TRUE
+LossOnDeathPct          = 0.00
+LossOnArrestPct         = 0.00
+WalletCap               = 999999999.99
+BankCap                 = 9999999999.99
+HudIcon                 = hud_icon_dacity_a
+HudColor                = 0xFFE7B416
+AudioPickup             = sfx_pickup_coin_a
+AudioSpend              = sfx_register_a
+
+[CURRENCY.CUR_USD_LEGACY]
+DisplayName             = Legacy Cash
+Ticker                  = USD_L
+Symbol                  = $
+SymbolPosition          = PREFIX
+LocKey                  = CUR_NAME_LEGACY
+Description             = "Old paper cash. Still found in stashes; converts to DacityCoin at any ATM."
+IsPrimary               = FALSE
+IsTradable              = FALSE
+IsEarnableInMissions    = FALSE
+IsEarnableInActivities  = TRUE
+LossOnDeathPct          = 10.00
+LossOnArrestPct         = 15.00
+WalletCap               = 50000.00
+BankCap                 = 0.00
+HudIcon                 = hud_icon_cash_legacy
+HudColor                = 0xFF4CAF50
+
+
+;==============================================================================
+; [EXCHANGE]
+; Conversion rules between in-world currencies (fictional, gameplay only).
+;==============================================================================
+[EXCHANGE]
+; From            To              Rate        FeePct   MinAmount   Location
+  CUR_USD_LEGACY  CUR_DACITY      1.0000      0.00     1.00        ATM_ANY
+  CUR_DACITY      CUR_USD_LEGACY  DISABLED    -        -           -
+
+[EXCHANGE.RULES]
+AllowNegativeBalance    = FALSE
+AtmDailyLimit           = 250000.00
+AtmCooldownSec          = 0
+ShowConversionToast     = TRUE
+ToastLocKey             = TOAST_CONVERTED_TO_A
+
+
+;==============================================================================
+; [ATM_NETWORK]
+;==============================================================================
+[ATM_NETWORK]
+; Id        District              PosX        PosY        PosZ      Brand
+  ATM_001   OCEAN_DRIVE_FAN       1204.55     -3381.10    12.04     DACITY_POINT
+  ATM_002   LITTLE_HAVANA_FAN     -412.88     -1290.67    18.33     DACITY_POINT
+  ATM_003   DOWNTOWN_FAN          302.12      844.90      34.71     DACITY_POINT
+  ATM_004   PORT_GELLHORN_FAN     -2981.40    5512.03     9.80      DACITY_POINT
+  ATM_005   KEYS_FAN              6610.02     -8820.55    4.12      DACITY_POINT
+  ATM_006   GRASSRIVERS_FAN       -5120.70    2204.18     6.55      DACITY_POINT
+  ATM_007   AIRPORT_FAN           2290.31     1999.64     21.00     DACITY_POINT
+  ATM_008   MARINA_FAN            1811.09     -2702.48    3.90      DACITY_POINT
+  ATM_009   STARFISH_IS_FAN       2501.44     -3010.27    5.20      DACITY_POINT
+  ATM_010   PRAWN_IS_FAN          820.66      -998.12     7.75      DACITY_POINT
+
+
+;==============================================================================
+; [VENDORS]
+; Each vendor lists price in DacityCoin ($A).
+;==============================================================================
+[VENDORS]
+
+[VENDORS.VND_AMMU_A]
+DisplayName             = "Ammo & Arms"
+Category                = WEAPONS
+Currency                = CUR_DACITY
+OpenHours               = 00:00-23:59
+DiscountOnLoyaltyPct    = 5.00
+; ItemId                  Price($A)    Stock    Unlock
+  ITM_PISTOL_STD          450.00       INF      STORY_01
+  ITM_PISTOL_HEAVY        1250.00      INF      STORY_04
+  ITM_SMG_COMPACT         2900.00      INF      STORY_06
+  ITM_SHOTGUN_PUMP        3400.00      INF      STORY_07
+  ITM_RIFLE_CARBINE       8800.00      INF      STORY_10
+  ITM_RIFLE_MARKSMAN      14500.00     INF      STORY_14
+  ITM_ARMOR_LIGHT         250.00       INF      NONE
+  ITM_ARMOR_HEAVY         900.00       INF      STORY_05
+  ITM_AMMO_PISTOL_x24     35.00        INF      NONE
+  ITM_AMMO_SMG_x60        70.00        INF      NONE
+  ITM_AMMO_RIFLE_x60      110.00       INF      NONE
+
+[VENDORS.VND_CLOTHES_A]
+DisplayName             = "Sunset Threads"
+Category                = APPAREL
+Currency                = CUR_DACITY
+OpenHours               = 09:00-22:00
+; ItemId                  Price($A)    Stock    Unlock
+  ITM_SHIRT_FLORAL        45.00        INF      NONE
+  ITM_SHIRT_DACITY_GOLD   120.00       INF      NONE
+  ITM_JACKET_LINEN        310.00       INF      NONE
+  ITM_CAP_A_LOGO          35.00        INF      NONE
+  ITM_SHADES_AVIATOR      95.00        INF      NONE
+  ITM_SNEAKERS_WHITE      140.00       INF      NONE
+  ITM_CHAIN_A_PENDANT     2500.00      INF      ACH_FIRST_100K
+
+[VENDORS.VND_FOOD_A]
+DisplayName             = "Palm Grill"
+Category                = FOOD
+Currency                = CUR_DACITY
+OpenHours               = 06:00-02:00
+; ItemId                  Price($A)    HealthRestore
+  ITM_FOOD_TACO           6.00         15
+  ITM_FOOD_BURGER         9.00         25
+  ITM_FOOD_CUBANO         11.00        30
+  ITM_DRINK_COLA          3.00         5
+  ITM_DRINK_SMOOTHIE      7.00         12
+
+[VENDORS.VND_TUNING_A]
+DisplayName             = "Neon Garage"
+Category                = VEHICLE_MODS
+Currency                = CUR_DACITY
+OpenHours               = 00:00-23:59
+; ModId                   Price($A)    AppliesTo
+  MOD_RESPRAY_STD         200.00       ALL
+  MOD_RESPRAY_DACITY_GOLD 1500.00      ALL
+  MOD_ENGINE_L1           1800.00      CARS, BIKES
+  MOD_ENGINE_L2           4200.00      CARS, BIKES
+  MOD_ENGINE_L3           9800.00      CARS, BIKES
+  MOD_BRAKES_L1           900.00       CARS, BIKES
+  MOD_TURBO               12000.00     CARS
+  MOD_ARMOR_PLATING       15000.00     CARS
+  MOD_NEON_GOLD_A         650.00       CARS
+  MOD_PLATE_CUSTOM        300.00       ALL
+
+
+;==============================================================================
+; [VEHICLES]
+; Purchasable vehicles. Price in DacityCoin ($A).
+;==============================================================================
+[VEHICLES]
+; VehicleId              Class        Price($A)    TopSpeedKmh   Seats   Dealer
+  VEH_COMPACT_BREEZE     COMPACT      14000.00     172           4       DLR_SOUTHBEACH
+  VEH_SEDAN_CORAL        SEDAN        28500.00     195           4       DLR_SOUTHBEACH
+  VEH_SUV_MANGROVE       SUV          46000.00     188           5       DLR_SOUTHBEACH
+  VEH_MUSCLE_SUNSET      MUSCLE       72000.00     238           2       DLR_DOWNTOWN
+  VEH_SPORT_FLAMINGO     SPORT        135000.00    281           2       DLR_DOWNTOWN
+  VEH_SUPER_APEX_A       SUPER        690000.00    334           2       DLR_DOWNTOWN
+  VEH_BIKE_STREET        MOTORCYCLE   11000.00     214           2       DLR_PORT
+  VEH_BIKE_SPORT_A       MOTORCYCLE   38000.00     276           2       DLR_PORT
+  VEH_BOAT_SKIFF         BOAT         19000.00     74            4       DLR_MARINA
+  VEH_BOAT_SPEED_A       BOAT         210000.00    118           6       DLR_MARINA
+  VEH_HELI_LIGHT         HELICOPTER   880000.00    215           4       DLR_AIRPORT
+  VEH_PLANE_PRIVATE_A    PLANE        2400000.00   610           8       DLR_AIRPORT
+
+
+;==============================================================================
+; [PROPERTIES]
+; Safehouses and businesses. Purchase and daily income in DacityCoin ($A).
+;==============================================================================
+[PROPERTIES]
+; PropertyId             Type         Price($A)     Income($A)/Day   Garage   District
+  PRP_STUDIO_HAVANA      SAFEHOUSE    45000.00      0.00             1        LITTLE_HAVANA_FAN
+  PRP_CONDO_OCEAN        SAFEHOUSE    210000.00     0.00             2        OCEAN_DRIVE_FAN
+  PRP_PENTHOUSE_DT       SAFEHOUSE    1150000.00    0.00             6        DOWNTOWN_FAN
+  PRP_VILLA_KEYS         SAFEHOUSE    3200000.00    0.00             10       KEYS_FAN
+  PRP_DINER_PALM         BUSINESS     180000.00     1400.00          0        PRAWN_IS_FAN
+  PRP_CARWASH_SUNNY      BUSINESS     260000.00     2100.00          2        GRASSRIVERS_FAN
+  PRP_NIGHTCLUB_A        BUSINESS     1800000.00    12500.00         4        OCEAN_DRIVE_FAN
+  PRP_MARINA_DOCK        BUSINESS     950000.00     6800.00          0        MARINA_FAN
+  PRP_DACITY_EXCHANGE    BUSINESS     4500000.00    31000.00         2        DOWNTOWN_FAN
+
+[PROPERTIES.RULES]
+IncomeCollectMode       = AUTO_TO_BANK
+IncomeTickHours         = 24
+MaxUncollectedDays      = 7
+RaidChancePctPerDay     = 2.50
+RaidDefenseMissionId    = MSN_SIDE_DEFEND_PROPERTY
+
+
+;==============================================================================
+; [MISSION_REWARDS]
+; Story and side missions. Rewards in DacityCoin ($A).
+;==============================================================================
+[MISSION_REWARDS]
+; MissionId              Chapter   Reward($A)   BonusGold($A)   RespectGain
+  MSN_STORY_01           1         500.00       250.00          10
+  MSN_STORY_02           1         850.00       400.00          12
+  MSN_STORY_03           1         1200.00      600.00          15
+  MSN_STORY_04           2         2500.00      1000.00         20
+  MSN_STORY_05           2         3800.00      1500.00         22
+  MSN_STORY_06           2         5200.00      2000.00         25
+  MSN_STORY_07           3         8000.00      3000.00         30
+  MSN_STORY_08           3         11000.00     4000.00         32
+  MSN_STORY_09           3         15000.00     5000.00         35
+  MSN_STORY_10           4         22000.00     7500.00         40
+  MSN_STORY_11           4         30000.00     10000.00        42
+  MSN_STORY_12           4         42000.00     12500.00        45
+  MSN_STORY_13           5         60000.00     15000.00        50
+  MSN_STORY_14           5         85000.00     20000.00        55
+  MSN_STORY_15_FINALE    5         250000.00    100000.00       100
+  MSN_SIDE_TAXI          -         45.00        0.00            1
+  MSN_SIDE_COURIER       -         120.00       30.00           2
+  MSN_SIDE_STREETRACE    -         900.00       300.00          5
+  MSN_SIDE_BOATRACE      -         1400.00      500.00          6
+  MSN_SIDE_BOUNTY        -         2500.00      800.00          8
+  MSN_SIDE_DEFEND_PROPERTY -       3000.00      1000.00         10
+  MSN_HEIST_MARINA       H1        180000.00    40000.00        60
+  MSN_HEIST_EXCHANGE_A   H2        650000.00    150000.00       90
+
+[MISSION_REWARDS.RULES]
+BonusGoldCondition      = ALL_OPTIONAL_OBJECTIVES
+RewardCurrency          = CUR_DACITY
+ReplayRewardPct         = 25.00
+PayoutToast             = TOAST_PAYOUT_A
+
+
+;==============================================================================
+; [ACTIVITIES]
+;==============================================================================
+[ACTIVITIES]
+; ActivityId             EntryFee($A)   MaxPayout($A)   CooldownMin
+  ACT_POKER_TABLE        100.00         25000.00        0
+  ACT_SLOTS_A            5.00           5000.00         0
+  ACT_DARTS              0.00           200.00          10
+  ACT_FISHING_KEYS       0.00           650.00          5
+  ACT_DRAG_STRIP         250.00         4000.00         15
+  ACT_JETSKI_CIRCUIT     150.00         2500.00         15
+  ACT_TREASURE_DIVE      0.00           12000.00        60
+
+
+;==============================================================================
+; [WANTED_PENALTIES]
+; Fines are paid in DacityCoin ($A) on arrest.
+;==============================================================================
+[WANTED_PENALTIES]
+; StarLevel   Fine($A)    HospitalBill($A)   ConfiscateWeapons
+  1           100.00      250.00             FALSE
+  2           500.00      500.00             FALSE
+  3           2000.00     1000.00            TRUE
+  4           6000.00     2000.00            TRUE
+  5           15000.00    4000.00            TRUE
+
+
+;==============================================================================
+; [PHONE_APPS]
+;==============================================================================
+[PHONE_APPS]
+
+[PHONE_APPS.APP_DACITY_WALLET]
+DisplayName             = "A-Wallet"
+Icon                    = phone_icon_a_wallet
+Features                = BALANCE, TRANSFER_TO_CREW, HISTORY, PROPERTY_INCOME
+DefaultInstalled        = TRUE
+LocKey                  = APP_A_WALLET
+
+[PHONE_APPS.APP_MARKET_TICKER]
+DisplayName             = "Vice Ticker"
+Icon                    = phone_icon_ticker
+Features                = IN_WORLD_STOCKS, NEWS_FEED
+DefaultInstalled        = TRUE
+Note                    = "Fictional in-world market. Not connected to any real exchange."
+
+[PHONE_APPS.APP_MARKET_TICKER.LISTINGS]
+; Ticker    CompanyName (fictional)          Sector
+  $A        DacityCoin Network               CURRENCY
+  PLMG      Palm Grill Holdings              FOOD
+  NEON      Neon Garage Group                AUTOMOTIVE
+  SNST      Sunset Threads Apparel           RETAIL
+  CRLA      Coral Air                        TRAVEL
+  MNGV      Mangrove Motors                  AUTOMOTIVE
+
+
+;==============================================================================
+; [RADIO_ADS]
+; Fictional in-world radio spots.
+;==============================================================================
+[RADIO_ADS]
+; AdId          Station         DurationSec   LocKey
+  AD_A_01       FM_SUNWAVE      30            RADIO_AD_DACITY_01
+  AD_A_02       FM_SUNWAVE      15            RADIO_AD_DACITY_02
+  AD_A_03       FM_TALK_VICE    45            RADIO_AD_DACITY_03
+  AD_NEON_01    FM_ROCKPALM     30            RADIO_AD_NEON_01
+  AD_PALM_01    FM_SALSA        20            RADIO_AD_PALM_01
+
+
+;==============================================================================
+; [BILLBOARDS]
+;==============================================================================
+[BILLBOARDS]
+; BillboardId    Texture                     District              Rotation
+  BB_A_DT_01     bb_dacity_a_gold_4k         DOWNTOWN_FAN          ROTATE_60S
+  BB_A_OD_01     bb_dacity_a_skyline_4k      OCEAN_DRIVE_FAN       STATIC
+  BB_A_HWY_01    bb_dacity_a_highway_4k      AIRPORT_FAN           ROTATE_60S
+  BB_NEON_01     bb_neon_garage_4k           PORT_GELLHORN_FAN     STATIC
+  BB_PALM_01     bb_palm_grill_4k            PRAWN_IS_FAN          STATIC
+
+
+;==============================================================================
+; [ACHIEVEMENTS]
+;==============================================================================
+[ACHIEVEMENTS]
+; AchId                  Title                         Condition                         Reward($A)
+  ACH_FIRST_A            "First Coin"                  EARN_ANY_CUR_DACITY               0.00
+  ACH_FIRST_10K          "Pocket Change"               WALLET_GTE 10000                  500.00
+  ACH_FIRST_100K         "Ticker Tape"                 WALLET_GTE 100000                 2500.00
+  ACH_FIRST_1M           "A-List"                      NET_WORTH_GTE 1000000             25000.00
+  ACH_PROPERTY_ALL       "Landlord of Leonida"         OWN_ALL PROPERTIES                100000.00
+  ACH_GOLD_RIDE          "Gold Standard"               APPLY MOD_RESPRAY_DACITY_GOLD     0.00
+  ACH_HEIST_EXCHANGE     "Exchange Rate"               COMPLETE MSN_HEIST_EXCHANGE_A     50000.00
+
+
+;==============================================================================
+; [LOCALIZATION]
+; English strings for keys referenced above.
+;==============================================================================
+[LOCALIZATION.EN]
+CUR_NAME_DACITY         = "DacityCoin"
+CUR_NAME_LEGACY         = "Legacy Cash"
+TOAST_CONVERTED_TO_A    = "Converted to DacityCoin ($A)."
+TOAST_PAYOUT_A          = "Payout received: $A {AMOUNT}"
+APP_A_WALLET            = "A-Wallet"
+RADIO_AD_DACITY_01      = "DacityCoin. Ticker: $A. The currency of the sunshine state - in this game, anyway."
+RADIO_AD_DACITY_02      = "Got A? You're good. DacityCoin, accepted everywhere in Vice."
+RADIO_AD_DACITY_03      = "This hour of Vice Talk is brought to you by DacityCoin, $A. Not financial advice. Seriously."
+RADIO_AD_NEON_01        = "Neon Garage. Make your ride glow."
+RADIO_AD_PALM_01        = "Palm Grill. Tacos so good you'll forget your wanted level."
+
+
+;==============================================================================
+; [DEBUG]
+; Developer toggles. Disabled in fan edition.
+;==============================================================================
+[DEBUG]
+EnableMoneyCheat        = FALSE
+CheatGrantAmount        = 0.00
+LogTransactions         = FALSE
+LogPath                 = logs/economy_tx.log
+OverlayWalletDebug      = FALSE
+
+
+;==============================================================================
+; [CHANGELOG]
+;==============================================================================
+[CHANGELOG]
+1.0.0.417   Initial fan-edition table. DacityCoin ($A) set as primary currency.
+1.0.0.402   Added A-Wallet phone app and Vice Ticker listings.
+1.0.0.388   Added property income table and raid rules.
+1.0.0.351   Added vendor tables (weapons, apparel, food, tuning).
+1.0.0.300   Schema v7: section-scoped keys, LocKey references.
+
+################################################################################
+##  END OF FILE - vice_economy_data.txt                                       ##
+##  Fan-made, fictional. Not affiliated with Rockstar Games / Take-Two.       ##
+################################################################################
