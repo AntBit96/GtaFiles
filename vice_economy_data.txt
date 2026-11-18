@@ -48,7 +48,6 @@ Checksum                = 0x00000000   ; placeholder, not computed for fan editi
 
 [CURRENCY.CUR_DACITY]
 DisplayName             = DacityCoin
-Ticker                  = $A
 Symbol                  = A
 SymbolPosition          = PREFIX
 LocKey                  = CUR_NAME_DACITY
@@ -68,7 +67,6 @@ AudioSpend              = sfx_register_a
 
 [CURRENCY.CUR_USD_LEGACY]
 DisplayName             = Legacy Cash
-Ticker                  = USD_L
 Symbol                  = $
 SymbolPosition          = PREFIX
 LocKey                  = CUR_NAME_LEGACY
